@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- Important to make website responsive -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurant Website</title>
+
+    <!-- Link our CSS file -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" type="image/png" href="images/logo.png">
+</head>
+
+<body>
+    <!-- Navbar Section Starts Here -->
+    <section class="navbar">
+        <div class="container">
+            <div class="logo">
+                <a href="#" title="Logo">
+                    <img src="images/logo.png" alt="Restaurant Logo" class="img-responsive">
+                </a>
+            </div>
+
+            <div class="menu text-right">
+                <ul>
+                    <li>
+                        <a href="index.html">Home</a>
+                    </li>
+                    <li>
+                        <a href="categories.html">Categories</a>
+                    </li>
+                    <li>
+                        <a href="foods.html">Foods</a>
+                    </li>
+                    <li>
+                        <a href="#">Contact</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="clearfix"></div>
+        </div>
+    </section>
+    <!-- Navbar Section Ends Here -->
+
+    <!-- fOOD sEARCH Section Starts Here -->
+    <section class="food-search">
+        <div class="container">
+            
+            <h2 class="text-center text-white">Fill this form to confirm your order.</h2>
+
+            <form action="#" class="order">
+                <fieldset>
+                    <legend>Selected Food</legend>
+
+                    <div class="food-menu-img">
+                        <img src="images/menu-pizza.jpg" alt="Chicken Hawain Pizza" class="img-responsive img-curve">
+                    </div>
+    
+                    <div class="food-menu-desc">
+                        <h3>Chicken Pizza</h3>
+                        <p class="food-price">Rs.350</p>
+
+                        <div class="order-label">Quantity</div>
+                        <input type="number" name="qty" class="input-responsive" value="0" required>
+                        
+                    </div>
+
+                    <div class="food-menu-img">
+                        <img src="images/menu-burger.jpg" alt="Chicken Burger" class="img-responsive img-curve">
+                    </div>
+    
+                    <div class="food-menu-desc">
+                        <h3>Chicken Burger</h3>
+                        <p class="food-price">Rs.120</p>
+
+                        <div class="order-label">Quantity</div>
+                        <input type="number" name="qty" class="input-responsive" value="0" required>
+                        
+                    </div>
+
+                    <div class="food-menu-img">
+                        <img src="images/menu-momo.jpg" alt="Chicken Steam Momo" class="img-responsive img-curve">
+                    </div>
+    
+                    <div class="food-menu-desc">
+                        <h3>Chicken Steam Momo</h3>
+                        <p class="food-price">Rs.100</p>
+
+                        <div class="order-label">Quantity</div>
+                        <input type="number" name="qty" class="input-responsive" value="0" required>
+                        
+                    </div>
+
+                </fieldset>
+            </form>
+            <!-- Total Bill Section -->
+            <section class="billing" style="margin: 40px auto; max-width: 400px; text-align: center;">
+                <h3>Your Order Summary</h3>
+                <div style="background: #f8f8f8; border: 2px solid #ff6b81; border-radius: 10px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.07);">
+                    <ul id="orderSummary" style="list-style: none; padding: 0; font-size: 1.1rem;"></ul>
+                    <div id="orderTotal" style="margin-top: 15px; font-size: 1.2rem; font-weight: bold;"></div>
+                </div>
+            </section>
+            <script>
+            // Get all food items and their quantities
+            function updateOrderSummary() {
+                var items = [
+                    {name: 'Chicken Pizza', price: 350, qty: document.getElementsByName('qty')[0].value},
+                    {name: 'Chicken Burger', price: 120, qty: document.getElementsByName('qty')[1].value},
+                    {name: 'Chicken Steam Momo', price: 100, qty: document.getElementsByName('qty')[2].value}
+                ];
+                var summary = '';
+                var total = 0;
+                items.forEach(function(item) {
+                    if (parseInt(item.qty) > 0) {
+                        summary += `<li>${item.name} (Rs.${item.price}) x ${item.qty} = Rs.${item.price * item.qty}</li>`;
+                        total += item.price * item.qty;
+                    }
+                });
+                document.getElementById('orderSummary').innerHTML = summary || '<li>No items selected.</li>';
+                document.getElementById('orderTotal').innerHTML = total > 0 ? 'Total Bill: Rs.' + total : '';
+            }
+            // Attach event listeners to quantity inputs
+            window.onload = function() {
+                var qtyInputs = document.getElementsByName('qty');
+                for (var i = 0; i < qtyInputs.length; i++) {
+                    qtyInputs[i].addEventListener('input', updateOrderSummary);
+                }
+                updateOrderSummary();
+            };
+            </script>
+
+            <fieldset>
+                <legend>Delivery Details</legend>
+                <div class="order-label">Full Name</div>
+                <input type="text" name="full-name" placeholder="E.g. Jeet Mahanta" class="input-responsive" required>
+
+                <div class="order-label">Phone Number</div>
+                <input type="tel" name="contact" placeholder="E.g. 7810xxxxxx" class="input-responsive" required>
+
+                <div class="order-label">Email</div>
+                <input type="email" name="email" placeholder="E.g. hi@jeetmahanta.com" class="input-responsive" required>
+
+                <div class="order-label">Address</div>
+                <textarea name="address" rows="10" placeholder="E.g. Street, City, Country" class="input-responsive" required></textarea>
+
+                <input type="submit" name="submit" value="Confirm Order" class="btn btn-primary">
+            </fieldset>
+            <div style="background: #fff3f3; border: 2px solid #ff6b81; border-radius: 10px; padding: 18px; margin: 20px auto; max-width: 400px; text-align: center; font-weight: bold; font-size: 1.1rem; color: #ff6b81;">We will add more items in future</div>
+             <div style="background: #fff3f3; border: 2px solid red; border-radius: 10px; padding: 18px; margin: 20px auto; max-width: 400px; text-align: center; font-weight: bold; font-size: 1.1rem; color: #ff6b81;">Thankyou visit Again</div>
+        </div>
+    </section>
+    <!-- fOOD sEARCH Section Ends Here -->
+
+    <!-- social Section Starts Here -->
+    <section class="social">
+        <div class="container text-center">
+            <ul>
+                <li>
+                    <a href="#"><img src="https://img.icons8.com/?size=100&id=BrU2BBoRXiWq&format=png&color=000000"/></a>
+                </li>
+                <li>
+                    <a href="#"><img src="https://img.icons8.com/?size=100&id=kBCrQMzpQDLQ&format=png&color=000000"/></a>
+                </li>
+                <li>
+                    <a href="#"><img src="https://img.icons8.com/?size=100&id=01GWmP9aUoPj&format=png&color=000000"/></a>
+                </li>
+            </ul>
+        </div>
+    </section>
+    <!-- social Section Ends Here -->
+
+    <!-- footer Section Starts Here -->
+    <section class="footer">
+        <div class="container text-center">
+            <p>All rights reserved. Designed By <a href="#">Jeet Mahanta</a></p>
+        </div>
+    </section>
+    <!-- footer Section Ends Here -->
+
+</body>
+</html>
